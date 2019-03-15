@@ -43,7 +43,7 @@
 					<a href="/sboard/list?pg=${k}" class="num">${k}</a>
 				</c:forEach>
 				<c:if test="${groupStartEnd[1] < pageEnd}">
-					<a href="/sboard/list?pg=${pageEnd+1}" class="next">다음</a>
+					<a href="/sboard/list?pg=${pageEnd}" class="next">다음</a>
 				</c:if>
 				</span>
 			</nav>

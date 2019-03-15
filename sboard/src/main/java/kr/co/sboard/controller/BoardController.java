@@ -1,10 +1,15 @@
 package kr.co.sboard.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,10 +58,7 @@ public class BoardController {
 		model.addAttribute("pageEnd", pageEnd);
 		model.addAttribute("groupStartEnd", groupStartEnd);
 //		model.addAttribute("page", list);
-		
-		
-		
-		
+	
 		return "/list";
 	}
 	
@@ -66,7 +68,7 @@ public class BoardController {
 		model.addAttribute("view", vo);
 		
 		FileVO file = service.fileView(seq);
-		model.addAttribute("filewView",file);
+		model.addAttribute("fileView",file);
 		return "/view";
 	}
 	
@@ -99,4 +101,55 @@ public class BoardController {
 		return "redirect:/list";
 	}
 	
+	@RequestMapping("/delete")
+	public String delete(String seq) {
+		service.delete(seq);
+		return "redirect:/list";
+	}
+	
+	
+	@RequestMapping("/fileDownload")
+	public void fileDownload(String parent, HttpServletRequest req, HttpServletResponse resp) {
+		
+		// 파일테이블에서 파일정보 가져오기
+		FileVO vo = service.fileView(parent);
+		
+		String filePath = req.getSession().getServletContext().getRealPath("/");
+		filePath += "resources/upload/"+vo.getNewName();
+		
+		try {
+			File file = new File(filePath);
+			
+			String name = new String(vo.getOldName().getBytes("UTF-8"), "iso-8859-1");
+			resp.setHeader("Cache-Control", "no-cache");
+			resp.setHeader("Content-Disposition", "attachment; filename="+name);
+			resp.setHeader("Content-Transfer-Encoding", "binary");
+			resp.setHeader("Pragma", "no-cache");
+			
+			// 스트림 연결 : 파일 ---- response객체 
+			BufferedInputStream  bis = new BufferedInputStream(new FileInputStream(file));
+			BufferedOutputStream bos = new BufferedOutputStream(resp.getOutputStream()); 
+			
+			
+			byte buffer[] = new byte[1024*8];
+			
+			while(true){
+				// Input스트림으로 데이터 읽어오기	
+				int read = bis.read(buffer);
+				if(read == -1){
+					break;
+				}
+				
+				// Output 스트림으로 데이터 쓰기
+				bos.write(buffer, 0, read);
+			}
+			
+			bis.close();
+			bos.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
 }
+	}

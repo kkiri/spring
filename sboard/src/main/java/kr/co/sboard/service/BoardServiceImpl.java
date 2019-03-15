@@ -101,8 +101,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void delete() {
-		
+	public void delete(String seq) {
+		dao.delete(seq);
 	}
 
 	@Override
@@ -135,10 +135,7 @@ public class BoardServiceImpl implements BoardService {
 		return vo;
 	}
 
-	@Override
-	public void fileDownload() {
-		
-	}
+
 
 	@Override
 	public void fileWrite(FileVO vo) {
@@ -149,5 +146,6 @@ public class BoardServiceImpl implements BoardService {
 	public FileVO fileView(String seq) {
 		return dao.fileView(seq);
 	}
+
 
 }

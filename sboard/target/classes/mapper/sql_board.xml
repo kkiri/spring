@@ -18,10 +18,12 @@
 		SELECT * FROM `JSP_BOARD`
 		WHERE seq=#{seq};
 	</select>
+	
 	<select id="SELECT_FILEVIEW" resultType="kr.co.sboard.vo.FileVO">
 		SELECT * FROM `JSP_FILE`
 		WHERE parent=#{seq};
 	</select>
+	
 	
 	<insert id="INSERT_BOARD" useGeneratedKeys="true" keyProperty="seq">
 		INSERT INTO `JSP_BOARD` SET
@@ -33,12 +35,17 @@
 		regip=#{regip},
 		rdate=NOW();
 	</insert>
+	
 	<insert id="INSERT_FILE">
 		INSERT INTO `JSP_FILE` SET
 		parent=#{parent},
 		oldName=#{oldName},
 		newName=#{newName},
 		rdate=NOW();
-		
 	</insert>
+	
+	<delete id="DELETE_BOARD">
+		DELETE FROM `JSP_BOARD` WHERE seq=#{seq};
+	</delete>
+	
 </mapper>

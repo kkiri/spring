@@ -37,7 +37,7 @@ public class BoardDao {
 		
 		return mybatis.selectOne("ns.mapper.sql_board.SELECT_FILEVIEW", seq);
 	}
-
+	
 	public BoardVO view(String seq) {
 		return mybatis.selectOne("ns.mapper.sql_board.SELECT_VIEW", seq);
 	}
@@ -46,8 +46,8 @@ public class BoardDao {
 		
 	}
 
-	public void delete() {
-		
+	public void delete(String seq) {
+		mybatis.delete("ns.mapper.sql_board.DELETE_BOARD", seq);
 	}
 	
 }

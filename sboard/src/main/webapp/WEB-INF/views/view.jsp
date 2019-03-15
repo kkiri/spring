@@ -21,7 +21,7 @@
 						<tr>
 							<td>첨부파일</td>
 							<td>
-								<a href="#">${filewView.oldName}</a>
+								<a href="/sboard/fileDownload?parent=${fileView.parent}">${fileView.oldName}</a>
 								<span>3회 다운로드</span>
 							</td>
 						</tr>
@@ -34,9 +34,9 @@
 						</tr>
 					</table>
 					<div class="btns">
-						<a href="#" class="cancel del">삭제</a>
+						<a href="/sboard/delete?seq=${view.seq}" class="cancel del">삭제</a>
 						<a href="#" class="cancel mod">수정</a>
-						<a href="#" class="cancel">목록</a>
+						<a href="/sboard/list/" class="cancel">목록</a>
 					</div>
 				</form>
 			</div><!-- view 끝 -->
