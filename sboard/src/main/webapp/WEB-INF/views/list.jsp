@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,7 +12,7 @@
 			<h3>글목록</h3>
 			<!-- 리스트 -->
 			<div class="list">
-				<p class="logout">홍길동님! 반갑습니다. <a href="#">[로그아웃]</a><p>
+				<p class="logout">${member.nick}님! 반갑습니다. <a href="/sboard/member/logout">[로그아웃]</a><p>
 				<table>
 					<tr>
 						<td>번호</td>
@@ -20,25 +21,33 @@
 						<td>날짜</td>
 						<td>조회</td>
 					</tr>
-				
+					
+					<c:forEach var="vo" items="${list}">
 					<tr>
-						<td>1</td>
-						<td><a href="#">테스트 제목입니다.</a>&nbsp;[3]</td>
-						<td>홍길동</td>
-						<td>18-03-01</td>
-						<td>12</td>
+						<td>${count=count-1}</td>
+						<td><a href="/sboard/view?seq=${vo.seq}">${vo.title}</a>&nbsp;[${vo.comment}]</td>
+						<td>${vo.uid}</td>
+						<td>${vo.rdate.substring(2,10)}</td>
+						<td>${vo.hit}</td>
 					</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<!-- 페이징 -->
 			<nav class="paging">
 				<span> 
-				<a href="#" class="prev">이전</a>
-				<a href="#" class="num">1</a>
-				<a href="#" class="next">다음</a>
+				<c:if test="${groupStartEnd[0] > 1}">
+					<a href="/sboard/list?=pg${groupStartEnd[0]-1}" class="prev">이전</a>
+				</c:if>
+				<c:forEach var="k" begin="${groupStartEnd[0]}" end="${groupStartEnd[1]}">
+					<a href="/sboard/list?pg=${k}" class="num">${k}</a>
+				</c:forEach>
+				<c:if test="${groupStartEnd[1] < pageEnd}">
+					<a href="/sboard/list?pg=${pageEnd+1}" class="next">다음</a>
+				</c:if>
 				</span>
 			</nav>
-			<a href="#" class="btnWrite">글쓰기</a>
+			<a href="/sboard/write" class="btnWrite">글쓰기</a>
 		</div>
 	</body>
 

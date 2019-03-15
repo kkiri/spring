@@ -5,6 +5,11 @@
 	<select id="SELECT_TERMS" resultType="kr.co.sboard.vo.TermsVO">
 		SELECT * FROM `JSP_TERMS`;
 	</select>	
+	
+	<select id="SELECT_MEMBER" resultType="kr.co.sboard.vo.MemberVO">
+		SELECT * FROM `JSP_MEMBER` WHERE uid=#{uid} AND pass=PASSWORD(#{pass});
+	</select>
+	
 
 	<insert id="INSERT_MEMBER">
 		INSERT INTO `JSP_MEMBER` SET

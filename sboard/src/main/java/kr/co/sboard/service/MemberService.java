@@ -5,7 +5,7 @@ import kr.co.sboard.vo.TermsVO;
 
 public interface MemberService {
 
-	public void login();
+	public MemberVO login(MemberVO vo);
 	public TermsVO terms();
 	public void register(MemberVO vo);
 	

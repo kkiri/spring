@@ -74,7 +74,7 @@
 			
 					</section>
 					<div>
-						<a href="#" class="cancel">취소</a> 
+						<a href="/sboard/member/login" class="cancel">취소</a> 
 						<input type="submit" class="join" value="회원가입" />
 					</div>
 				</form>

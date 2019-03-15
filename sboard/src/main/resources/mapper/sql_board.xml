@@ -2,6 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ns.mapper.sql_board">
 	
-
-
+	<select id="SELECT_LIST" resultType="kr.co.sboard.vo.BoardVO">
+		SELECT * FROM `JSP_BOARD` 
+		WHERE parent=0 AND cate='notice'
+		ORDER BY seq DESC
+		LIMIT #{start}, 10;		
+	</select>
+	
+	<select id="SELECT_LIST_COUNT" resultType="int"> 
+		SELECT COUNT(*) FROM `JSP_BOARD`
+		WHERE parent=0 AND cate='notice';
+	</select>
+	
+	<select id="SELECT_VIEW" resultType="kr.co.sboard.vo.BoardVO">
+		SELECT * FROM `JSP_BOARD`
+		WHERE seq=#{seq};
+	</select>
+	<select id="SELECT_FILEVIEW" resultType="kr.co.sboard.vo.FileVO">
+		SELECT * FROM `JSP_FILE`
+		WHERE parent=#{seq};
+	</select>
+	
+	<insert id="INSERT_BOARD" useGeneratedKeys="true" keyProperty="seq">
+		INSERT INTO `JSP_BOARD` SET
+		cate=#{cate},
+		title=#{title},
+		content=#{content},
+		file=#{file},
+		uid=#{uid},
+		regip=#{regip},
+		rdate=NOW();
+	</insert>
+	<insert id="INSERT_FILE">
+		INSERT INTO `JSP_FILE` SET
+		parent=#{parent},
+		oldName=#{oldName},
+		newName=#{newName},
+		rdate=NOW();
+		
+	</insert>
 </mapper>

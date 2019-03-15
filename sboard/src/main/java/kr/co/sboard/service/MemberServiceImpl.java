@@ -15,8 +15,8 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao dao;
 	
 	@Override
-	public void login() {
-		dao.login();
+	public MemberVO login(MemberVO vo) {
+		return dao.login(vo);
 	}
 
 	@Override

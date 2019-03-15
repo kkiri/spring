@@ -9,15 +9,15 @@
 	<body>
 		<div id="member">
 			<section class="login">		
-				<form action="#" method="get">
+				<form action="/sboard/member/login" method="post">
 					<table>
 						<tr>
 							<td><img src="/sboard/img/login_ico_id.png" alt="아이디" /></td>
-							<td><input type="text" name="id" required placeholder="아이디 입력" autocomplete="off" /></td>
+							<td><input type="text" name="uid" required placeholder="아이디 입력" autocomplete="off" /></td>
 						</tr>
 						<tr>
 							<td><img src="/sboard/img/login_ico_pw.png" alt="비밀번호" /></td>
-							<td><input type="password" name="pw" required placeholder="비밀번호 입력" /></td>
+							<td><input type="password" name="pass" required placeholder="비밀번호 입력" /></td>
 						</tr>
 					</table>
 					<input type="submit" class="btnLogin" value="로그인" />
